@@ -1,0 +1,16 @@
+{
+  "name": "OracleSource1",
+  "config": {
+  	
+  	  "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector", 
+      "connection.url": "jdbc:oracle:thin:@172.20.0.5:1521:ORCLCDB", 
+      "connection.user": "inventory",
+      "connection.password":"inventory",
+      "mode": "incrementing",
+	    "incrementing.column.name": "EMPNO",
+	    "topic.prefix": "empdep",
+	    "validate.non.null": "false",
+	    "query":"select e1.EMPNO AS EMPNO,e1.ENAME AS ENAME,e1.JOB AS JOB,e1.MGR AS MGR,e1.DEPTNO AS DEPTNO,d1.DNAME AS DNAME,d1.LOC AS LOC from emp e1 JOIN dept d1 ON e1.DEPTNO=d1.DEPTNO",
+      "poll.interval.ms" : 1000
+  }
+}

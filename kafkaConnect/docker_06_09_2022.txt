@@ -1,0 +1,133 @@
+Steps for kafka connect 
+
+open cmd
+1 docker login
+2 docker-compose up -d
+3 docker ps
+
+Login to mysql database 
+1 docker exec -it b6f6fcba70e9 mysql -umysqluser  -pmysqlpw
+2 use inventory;
+
+Login to oracle database
+1 docker exec -it 66eea4e2b8af bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+2 connect sys as sysdba;
+3 -- Here enter the password as 'Oradoc_db1'
+4 alter session set "_ORACLE_SCRIPT"=true;
+5 create user inventory identified by inventory;
+6 GRANT ALL PRIVILEGES TO inventory;
+7 connect inventory;
+
+--create user dummy identified by dummy;
+--GRANT ALL PRIVILEGES TO dummy;
+
+
+Create source connector for kafka connect
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @source.json
+
+Create sink connector for kafka connect
+Source Connector:-
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @oracle-sink.json
+
+Sink Connector:-
+Before creating sink connector check the id address of the container and make the appropriate change in the sink connector configuration 
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 1a6785347d1a  ------>Check ip address of the container
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @oracle-sink2.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @oracle-sink3.json
+
+docker run --tty --network kafkaconnect_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8081 -t empdepp
+docker run --tty --network kafkaconnect_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8081 -t schema-changes.inventory
+
+
+Once your source and sink connector is created execute the create statement on the source database(mysql)
+create table query
+create table student(id INTEGER PRIMARY key, name VARCHAR(20));
+insert into student values(1,'asd');
+
+As soon as you create table in source database automatically all the changes will be refeected into the target database
+select * from "student";
+select * from "customers";
+select * from "FOOD";
+
+docker logs -f kafkaconnect-oracle-db-1
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' d5d3f7f4fa00 
+
+
+How to check List of topics created
+open zookeper terminal from docker and enter
+kafka-topics --zookeeper 127.0.0.1:2181 --list
+
+Checks logs after creating connectors if everything is fine 
+docker logs -f 4793e727ca84 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table dept
+(
+  dept_no int not null,
+  dept_name varchar(100) not null,
+  dept_location varchar(100) not null,
+  primary key (dept_no)
+);
+
+create table employee 
+(
+  emp_id int not null,
+  emp_name varchar(100) not null,
+  mgr_emp_id int,
+  dept_no int not null,
+  primary key (emp_id),
+  key employee_mgr_emp_id (mgr_emp_id),
+  foreign key fk_employee_dept_dept_no (dept_no) references dept (dept_no) on delete no action on update no action
+);
+
+insert into dept values 
+(1, 'Dept-1', 'Chicago'), 
+(2, 'Dept-2', 'London');
+
+insert into employee values 
+(1, 'Clark Mgr', null, 1),
+(2, 'Cameron Emp', 1, 1),
+(3, 'Charlie Emp', 1, 1),
+(4, 'Layton Emp', null, 2),
+(5, 'Linda Emp', null, 2);
+
