@@ -1,0 +1,102 @@
+drop table dept;
+drop table emp;
+
+create table dept(  
+  deptno     INTEGER PRIMARY KEY,  
+  dname      varchar2(14),  
+  loc        varchar2(13)   
+);
+
+insert into DEPT (DEPTNO, DNAME, LOC) values(1, 'ACCOUNTING', 'NEW YORK');
+insert into dept values(2, 'RESEARCH', 'DALLAS');
+insert into dept  values(3, 'SALES', 'CHICAGO');
+insert into dept values(4, 'OPERATIONS', 'BOSTON');
+
+create table emp(  
+  ID    INTEGER PRIMARY KEY,  
+  ename    varchar2(10),  
+  job      varchar2(9),  
+  mgr      number(4,0),  
+  hiredate date,  
+  sal      number(7,2),  
+  comm     number(7,2),  
+  deptno   number(2,0),
+  constraint fk_deptno foreign key (deptno) references dept (deptno)  
+);
+
+
+
+
+
+insert into emp  
+values(  
+ 1, 'KING', 'PRESIDENT', null,  
+ to_date('17-11-1981','dd-mm-yyyy'),  
+ 5000, null, 1  
+);
+insert into emp  
+values(  
+ 2, 'BLAKE', 'MANAGER', 7839,  
+ to_date('1-5-1981','dd-mm-yyyy'),  
+ 2850, null, 3  
+);
+insert into emp  
+values(  
+ 3, 'CLARK', 'MANAGER', 7839,  
+ to_date('9-6-1981','dd-mm-yyyy'),  
+ 2450, null, 1  
+);
+insert into emp  
+values(  
+ 4, 'JONES', 'MANAGER', 7839,  
+ to_date('2-4-1981','dd-mm-yyyy'),  
+ 2975, null, 2  
+);
+insert into emp  
+values(  
+ 5, 'SCOTT', 'ANALYST', 7566,  
+ to_date('13-JUL-87','dd-mm-rr') - 85,  
+ 3000, null, 2  
+);
+insert into emp  
+values(  
+ 6, 'FORD', 'ANALYST', 7566,  
+ to_date('3-12-1981','dd-mm-yyyy'),  
+ 3000, null, 2  
+);
+insert into emp  
+values(  
+ 7, 'SMITH', 'CLERK', 7902,  
+ to_date('17-12-1980','dd-mm-yyyy'),  
+ 800, null, 2  
+);
+
+
+drop table emp_address;
+delete from emp_address;
+
+
+create table emp_address(  
+  address    varchar2(100),  
+  city      varchar2(90),   
+  state  varchar2(90),
+  emp_id   number(2,0),
+  constraint fk_address foreign key (emp_id) references emp (ID)  
+);
+
+
+
+REM INSERTING into EMP_ADDRESS
+SET DEFINE OFF;
+Insert into EMP_ADDRESS (ADDRESS,CITY,STATE,EMP_ID) values ('101 Sheetal Apartment Mumbai goregaon east','Mumbai','Maharashtra',1);
+Insert into EMP_ADDRESS (ADDRESS,CITY,STATE,EMP_ID) values ('102 Atlanta Complex Andheri East Mumbai 400063','Mumbai','Maharashtra',2);
+Insert into EMP_ADDRESS (ADDRESS,CITY,STATE,EMP_ID) values ('10 Obroi towers Kandawali West','Mumbai','Maharashtra',3);
+Insert into EMP_ADDRESS (ADDRESS,CITY,STATE,EMP_ID) values ('1 Gookuldham chennei','chennei','chennei',4);
+Insert into EMP_ADDRESS (ADDRESS,CITY,STATE,EMP_ID) values ('33 Naiyak Wadi Boisar','Mumbai','Maharashtra',5);
+Insert into EMP_ADDRESS (ADDRESS,CITY,STATE,EMP_ID) values ('102 Atlanta Complex Andheri East Mumbai 400063','Mumbai','Maharashtra',6);
+
+
+
+
+
+select e1.ID AS ID,e1.ENAME AS ENAME,e1.JOB AS JOB,e1.MGR AS MGR,e1.DEPTNO AS DEPTNO,d1.DNAME AS DNAME,d1.LOC AS LOC from emp e1 JOIN dept d1 ON e1.DEPTNO=d1.DEPTNO JOIN dept d1 ON e1.DEPTNO=d1.DEPTNO;

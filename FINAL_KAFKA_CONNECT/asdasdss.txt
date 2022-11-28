@@ -1,0 +1,327 @@
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' e9222db8d3e3 
+
+
+
+
+
+docker inspect e9222db8d3e3 | grep "IPAddress"
+
+
+docker inspect e9222db8d3e3  | grep -w "IPAddress" | awk '{ print $2 }' | head -n 1 | cut -d "," -f1
+
+docker exec -it f834d570a4a7 mysql -umysqluser  -pmysqlpw
+
+
+docker exec -it e9222db8d3e3 bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+
+docker exec -ti -u oracle e9222db8d3e3 sqlplus SYS/Databas3@//localhost:1521/DEV AS SYSDBA
+
+Oradoc_db1
+
+
+
+Oradoc_db1
+
+docker exec -it oracle bash -c 'sleep 1;rlwrap sqlplus sys/Admin123@localhost:1521/ORCLCDB as sysdba'
+
+docker run --tty --network kafkanew_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8081 -t postgres.public.student
+
+
+
+
+
+
+
+docker exec -it 657bfcec3f5e bash
+ mysql -u root -p
+debezium
+docker exec -it 8c14b3436f17 mysql -umysqluser  -pmysqlpw
+
+http://localhost:8083/connector-plugins
+
+docker exec -it ae422954fd18 bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+
+
+
+docker exec -ti c66890f925da sqlplus / as sysdba
+alter pluggable database pdb1 open;
+
+
+ALTER USER sys IDENTIFIED BY "sysassysdba"
+
+
+
+ORCLPDB1
+
+
+cp - downloads jdbc /path 
+
+
+
+
+
+
+ls
+cd usr
+ cd share
+cd java
+cd kafka
+
+curl -sO https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/$KAFKA_JDBC_VERSION/kafka-connect-jdbc-$KAFKA_JDBC_VERSION.jar
+
+
+
+mkdir kafka-connect-jdbc
+
+docker exec -it 3b24ba6b7311 confluent-hub install confluentinc/kafka-connect-jdbc:latest
+
+
+curl -sO https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/5.5.0/kafka-connect-jdbc-5.5.0
+
+curl -sO https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/10.5.1/kafka-connect-jdbc-10.5.1.jar
+
+curl -sO https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/$KAFKA_JDBC_VERSION/kafka-connect-jdbc-$KAFKA_JDBC_VERSION.jar
+
+
+https://www.confluent.io/hub/confluentinc/kafka-connect-jdbc
+
+confluent-hub install confluentinc/kafka-connect-jdbc:10.5.1
+confluent-hub install confluentinc/kafka-connect-http:1.5.4
+
+
+
+ psql --username inventory
+
+docker-compose exec c4d6a40c044d bash -c 'psql -Udocker $docker'
+
+docker exec -it c4d6a40c044d bash
+
+
+ docker-compose exec c4d6a40c044d bash -c 'psql -U $POSTGRES_USER $POSTGRES_DB'
+
+
+
+
+"jdbc:oracle://oracle:5432/dummy?user=dummy&password=dummy",
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @postgrace-sink.json
+
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @source.json
+
+
+
+docker-compose -f docker-compose.yaml exec postgres bash -c 'psql -U $POSTGRES_USER $POSTGRES_DB -c "select * from customers"'
+ docker-compose exec 9652d27c3a70 bash -c 'psql -U $POSTGRES_USER $POSTGRES_DB'
+docker exec -it 9652d27c3a70 bash
+psql -h postgres-p 5432 -U postgres -W
+psql -U postgres
+
+
+psql -U postgresuser inventory
+
+
+psql -U docker -d inventory -W
+
+
+
+
+docker exec -it a5406bec5347 psql -U postgres
+psql -U docker -d inventory -W
+docker exec -it 9652d27c3a70  bash
+
+
+docker exec -it 05afcb08598c mysql -umysqluser  -pmysqlpw
+docker-compose -f docker-compose.yaml exec 20a45dd8b753 bash -c 'mysql -umysqluser  -pmysqlpw inventory -e "select * from customers"'
+
+mysqladmin -u root password 'docker'
+
+
+
+
+bin/kafka-console-consumer.sh --bootstrap-server BROKERS --topic FOOD
+
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic FOOD --from-beginning
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --max-messages 5 --topic FOOD
+docker run --tty --network kafkaconnect_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8081 -t schema-changes.inventory
+
+
+docker exec -it 7679b6fa4810 bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+
+docker exec -it 7f5006167f3b bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+docker exec -ti 8e1ed6c5f441 sqlplus / as sysdba
+docker exec -ti a047a1eccb4d  sqlplus pdbadmin@ORCLPDB1
+
+
+
+docker logs -f kafkanew-oracle-db-1
+
+
+
+name=oracle_sink
+
+connector.class=io.confluent.connect.jdbc.JdbcSinkConnector
+
+tasks.max=1
+
+topics=DJ
+
+connection.url=jdbc:oracle:thin:@hostname:port:sid
+
+connection.user=username
+
+connection.password=password
+
+#key.converter=org.apache.kafka.connect.json.JsonConverter
+
+#value.converter=org.apache.kafka.connect.json.JsonConverter
+
+auto.create=true
+
+auto.evolve=true
+
+
+
+
+
+
+create pdb : ORCLPDB1
+
+
+curl -X POST http://example:8083/connectors -H "Content-Type: application/json" -d '{
+        "name": "sink_oracle",
+        "config": {
+                "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+                "tasks.max": "1",
+                "topics": "kafka_student",
+                "connection.url": "jdbc:oracle:thin:@localhost:1521/ORCLCDB",
+                "connection.user": "dummy",
+                "connection.password": "dummy",
+                "insert.mode": "upsert",
+                "auto.create": "true",
+                "auto.evolve": "true",
+                "pk.mode": "record_value",
+                "pk.fields": "id"
+                }
+        }'
+
+
+
+
+
+
+
+
+
+
+
+ {
+     "name": "dbsinasdk-adw",
+     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+     "tasks.max": "1",
+     "topics": "student",
+     "connection.url": "jdbc:oracle:thin:@127.0.0.1:1521/ORCLCDB", 
+     "connection.user": "dummy",
+     "connection.password": "dummy",
+     "auto.create": "true",
+     "key.converter": "io.confluent.connect.avro.AvroConverter",
+     "value.converter": "io.confluent.connect.avro.AvroConverter",
+     "key.converter.schema.registry.url": "http://schema-registry-0:8081",
+     "value.converter.schema.registry.url": "http://schema-registry-0:8081"
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+    "name": "postgasdasdfsdsdaseasdrtdrase-sink",
+    "config": {
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+                "tasks.max": "1",
+                "topics": "student",
+                "connection.url": "jdbc:oracle:thin:@localhost:1521/ORCLCDB",
+                "connection.user": "dummy",
+                "connection.password": "dummy",
+                "insert.mode": "upsert",
+                "auto.create": "true",
+                "auto.evolve": "true",
+                "pk.mode": "record_value",
+                "pk.fields": "id"
+    }
+}
+
+
+
+
+
+
+{
+    "name": "postgasdasdfsdsdaseasdrtdrase-sink",
+    "config": {
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+                "tasks.max": "1",
+                "topics": "student",
+                "connection.url": "jdbc:oracle:thin:@localhost:1521/ORCLCDB",
+                "connection.user": "dummy",
+                "connection.password": "dummy",
+                "insert.mode": "upsert",
+                "auto.create": "true",
+                "auto.evolve": "true",
+                "pk.mode": "record_value",
+                "pk.fields": "id"
+    }
+}
+
+
+
+
+
+psql -U docker template0
+
+psql -U postgresuser exampledb
+
+
+./kafka-topics.sh --zookeeper zk1.example.com:2181 --describe --topic student
+
+
+GRANT CONNECT ON DATABASE exampledb TO public;
+
+ALTER USER docker WITH SUPERUSER;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA exampledb TO docker;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN exampledb schema_name TO username;
+
+
+
+
+
+
+{
+    "name": "mysql-source-codfgnnector",
+    "config": {
+        
+        
+        "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+                  "connection.url": "jdbc:mysql://127.0.0.1:3306/inventory?user=debezium&password=dbz",
+					"mode": "incrementing",
+					"incrementing.column.name": "id",
+					"topic.prefix": "test-mysql-jdbc-",
+                  "table.whitelist": "VW_LOGON",
+                  "table.types": "VIEW",
+                  "poll.interval.ms": "1000",
+           
+               
+                  "validate.non.null":false
+    }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "SourceConnector",
+  "config": {
+  	
+  	  "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector", 
+      "connection.url": "jdbc:oracle:thin:@172.18.0.5:1521:ORCLCDB", 
+      "connection.user": "inventory",
+      "connection.password":"inventory",
+      "mode": "incrementing",
+	    "incrementing.column.name": "ID",
+	    "topic.prefix": "EMPDDD",
+	    "validate.non.null": "true",
+	   
+	    "query":"select e1.ID AS ID,e1.ENAME AS ENAME,e1.JOB AS JOB,e1.MGR AS MGR,e1.DEPTNO AS DEPTNO,d1.DNAME AS DNAME,d1.LOC AS LOC from emp e1 JOIN dept d1 ON e1.DEPTNO=d1.DEPTNO JOIN dept d1 ON e1.DEPTNO=d1.DEPTNO",
+	    
+	    
+	   "_comment": "--- Add key to the message based on the entity id field ---",
+   "transforms": "createKey,extractId",
+    "transforms.createKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.createKey.fields": "ID",
+    "transforms.extractId.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractId.field": "ID",
+	    
+	    
+	    
+      "poll.interval.ms" : 1000
+  }
+}

@@ -1,0 +1,55 @@
+docker-compose up -d
+docker ps
+
+take containser id of oracle eg(a24b863d53d0)
+docker exec -it 6c84fb179a96 bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+
+
+
+docker port 6f49867c6b26 check port no of oracle db
+
+
+How to connect to local schema of oracle db
+sqlplus sys/admin@//localhost:0.0.0.0/orcl as sysdba
+Then enter the sqlPlus username and password eg
+system
+admin
+docker logs -f 062ebd9f34fc 
+
+Login to oracle database
+2 connect sys as sysdba;
+3 -- Here enter the password as 'Oradoc_db1'
+4 alter session set "_ORACLE_SCRIPT"=true;
+5 create user inventory identified by inventory;
+6 GRANT ALL PRIVILEGES TO inventory;
+7 connect inventory;
+
+--create user dummy identified by dummy;
+--GRANT ALL PRIVILEGES TO dummy;
+
+SELECT table_name FROM user_tables ORDER BY table_name;
+
+How to check List of topics created
+open zookeper terminal from docker and enter
+kafka-topics --zookeeper 127.0.0.1:2181 --list
+
+
+docker logs -f kafkaconnect-oracle-db-1
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 6c84fb179a96 
+
+Add proper ip in the source and sink connectors URL eg @172.20.0.5
+
+After creating the source connector check the kafka topic list again 
+one topic should e created 
+open zookeper terminal from docker and enter
+kafka-topics --zookeeper 127.0.0.1:2181 --list
+
+
+How to monitor data in the topic 
+docker run --tty --network kafkaconnect_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8081 -t EMPDEP5
+
+
+now create a target DB in docker 
+--create user dummy identified by dummy;
+--GRANT ALL PRIVILEGES TO dummy;
+
